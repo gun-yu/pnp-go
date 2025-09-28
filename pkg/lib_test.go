@@ -287,7 +287,7 @@ func TestGlobalCache(t *testing.T) {
 		"source-map-npm-0.6.1-1a3621db16-10c0.zip",
 		"node_modules",
 		"source-map",
-	))
+	)) + "/"
 
 	if got != expected {
 		t.Fatalf("expected resolved path %q, got %q", expected, got)

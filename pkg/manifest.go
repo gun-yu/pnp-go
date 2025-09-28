@@ -118,7 +118,6 @@ func (m *FallbackPool) UnmarshalJSON(data []byte) error {
 			return err
 		}
 
-		// null 허용
 		raw := bytes.TrimSpace(pair[1])
 		if bytes.Equal(raw, []byte("null")) {
 			res[key] = nil

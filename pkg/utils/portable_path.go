@@ -36,7 +36,7 @@ func fromPortablePath(s string) string {
 	}
 	// "/unc/(.dot/)?rest"
 	if m := reUNCPortablePath.FindStringSubmatch(s); m != nil {
-		if m[1] != "" { // ".dot/"가 있으면 장치 UNC
+		if m[1] != "" {
 			return `\\.\` + m[2]
 		}
 		return `\\` + m[2]

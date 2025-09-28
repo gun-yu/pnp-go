@@ -51,7 +51,6 @@ func Example() {
 		log.Printf("Resolved: path=%s subpath=%s", res.Path, sub)
 
 	case ResolutionSkipped:
-		// 이 경우엔 기본 해석기로 포워딩
 		log.Printf("Skipped by PnP resolver; use default resolver")
 	}
 }
@@ -292,7 +291,6 @@ func TestGlobalCache(t *testing.T) {
 	if got != expected {
 		t.Fatalf("expected resolved path %q, got %q", expected, got)
 	}
-	// 러스트의 subpath == None 에 대응: Subpath를 빈 문자열로 취급
 	if res.ModulePath != nil {
 		t.Fatalf("expected subpath=\"\", got %q", *res.ModulePath)
 	}

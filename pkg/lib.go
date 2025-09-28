@@ -28,11 +28,9 @@ type ResolutionConfig struct {
 
 type Resolution struct {
 	Kind       ResolutionKind
-	Path       string  // resolved package location (디렉터리)
-	ModulePath *string // specifier의 서브 경로 (@scope/pkg/<여기>)
+	Path       string
+	ModulePath *string
 }
-
-// --- 에러 타입들 (필요 최소) ---
 
 type UndeclaredDependency struct {
 	Message        string
@@ -179,13 +177,12 @@ func InitPnpManifest(m *Manifest, manifestPath string) error {
 		return fmt.Errorf("assertion failed: should have a top-level range key")
 	}
 
-	// fallback_pool: 비어있는 키만 루트 의존성으로 채우기
 	if m.FallbackPool == nil {
 		m.FallbackPool = make(FallbackPool)
 	}
 	for depName, dep := range top.PackageDependencies {
 		if _, exists := m.FallbackPool[depName]; !exists {
-			m.FallbackPool[depName] = dep // 포인터 복사(=clone 역할)
+			m.FallbackPool[depName] = dep
 		}
 	}
 

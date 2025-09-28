@@ -84,8 +84,6 @@ func TestGetAncestorValue_Unicode(t *testing.T) {
 	}
 }
 
-// --- 루트에 값이 있는 경우(빈 문자열 키를 허용하는 경우로 가정) ---
-
 func TestRootValue_AsAncestor(t *testing.T) {
 	tr := New[string]()
 	tr.Set("", "ROOT")
@@ -128,7 +126,7 @@ func TestZeroValue_Int(t *testing.T) {
 
 func TestGetAncestorValue_NoAncestor(t *testing.T) {
 	tr := New[string]()
-	// 아무 값도 넣지 않음
+
 	if _, ok := tr.GetAncestorValue("anything"); ok {
 		t.Fatalf("expected no ancestor value, but got ok=true")
 	}

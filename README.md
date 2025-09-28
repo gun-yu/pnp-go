@@ -8,12 +8,6 @@ This crate implements the Yarn Plug'n'Play [resolution algorithms](https://yarnp
 ## Resolution
 
 ```go
-package nodepnp
-
-import (
-	"path/filepath"
-)
-
 func Example() {
 	manifest, err := loadPNPManifest(".pnp.cjs")
 	if err != nil {

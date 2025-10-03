@@ -5,10 +5,11 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"pnp-go/pkg/utils"
 	"regexp"
 	"slices"
 	"strings"
+
+	"github.com/gun-yu/pnp-go/pkg/utils"
 )
 
 type ResolutionKind int

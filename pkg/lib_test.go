@@ -5,10 +5,11 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"pnp-go/pkg/utils"
 	"runtime"
 	"strings"
 	"testing"
+
+	"github.com/gun-yu/pnp-go/pkg/utils"
 )
 
 type TestSuite struct {

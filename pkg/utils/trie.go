@@ -1,8 +1,9 @@
 package utils
 
 import (
-	"pnp-go/pkg/utils/trie_internal"
 	"strings"
+
+	"github.com/gun-yu/pnp-go/pkg/utils/trie_internal"
 )
 
 type Trie[T any] struct {

@@ -4,8 +4,9 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"pnp-go/pkg/utils"
 	"regexp"
+
+	"github.com/gun-yu/pnp-go/pkg/utils"
 )
 
 type Trie[T any] = utils.Trie[T]

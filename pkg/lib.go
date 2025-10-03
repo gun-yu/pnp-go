@@ -19,7 +19,7 @@ const (
 )
 
 type ResolutionHost struct {
-	FindPnPManifest func(start string) (*Manifest, error)
+	FindPNPManifest func(start string) (*Manifest, error)
 }
 
 type ResolutionConfig struct {
@@ -117,7 +117,7 @@ func ParseBareIdentifier(spec string) (string, *string, error) {
 	return pkg, sub, nil
 }
 
-func FindClosestPnPManifestPath(start string) (string, bool) {
+func FindClosestPNPManifestPath(start string) (string, bool) {
 	dir := filepath.Clean(start)
 
 	for {
@@ -134,9 +134,9 @@ func FindClosestPnPManifestPath(start string) (string, bool) {
 	return "", false
 }
 
-var rePnP = regexp.MustCompile(`(?s)(const[\ \r\n]+RAW_RUNTIME_STATE[\ \r\n]*=[\ \r\n]*|hydrateRuntimeState\(JSON\.parse\()'`)
+var rePNP = regexp.MustCompile(`(?s)(const[\ \r\n]+RAW_RUNTIME_STATE[\ \r\n]*=[\ \r\n]*|hydrateRuntimeState\(JSON\.parse\()'`)
 
-func InitPnpManifest(m *Manifest, manifestPath string) error {
+func InitPNPManifest(m *Manifest, manifestPath string) error {
 	if abs, err := filepath.Abs(manifestPath); err == nil {
 		m.ManifestPath = abs
 		m.ManifestDir = filepath.Dir(abs)
@@ -189,7 +189,7 @@ func InitPnpManifest(m *Manifest, manifestPath string) error {
 	return nil
 }
 
-func LoadPnPManifest(p string) (Manifest, error) {
+func LoadPNPManifest(p string) (Manifest, error) {
 	content, err := os.ReadFile(p)
 	if err != nil {
 		return Manifest{}, &FailedManifestHydration{
@@ -204,7 +204,7 @@ func LoadPnPManifest(p string) (Manifest, error) {
 		}
 	}
 
-	loc := rePnP.FindIndex(content)
+	loc := rePNP.FindIndex(content)
 	if loc == nil {
 		return Manifest{}, &FailedManifestHydration{
 			Message:      "We failed to locate the PnP data payload inside its manifest file. Did you manually edit the file?",
@@ -239,16 +239,16 @@ func LoadPnPManifest(p string) (Manifest, error) {
 		}
 	}
 
-	InitPnpManifest(&manifest, p)
+	InitPNPManifest(&manifest, p)
 	return manifest, nil
 }
 
-func FindPnPManifest(parent string) (*Manifest, error) {
-	path, ok := FindClosestPnPManifestPath(parent)
+func FindPNPManifest(parent string) (*Manifest, error) {
+	path, ok := FindClosestPNPManifestPath(parent)
 	if !ok {
 		return nil, nil
 	}
-	manifest, err := LoadPnPManifest(path)
+	manifest, err := LoadPNPManifest(path)
 	if err != nil {
 		return nil, err
 	}
@@ -453,10 +453,10 @@ func ResolveToUnqualifiedViaManifest(
 }
 
 func ResolveToUnqualified(specifier, parentPath string, cfg *ResolutionConfig) (Resolution, error) {
-	if cfg == nil || cfg.Host.FindPnPManifest == nil {
+	if cfg == nil || cfg.Host.FindPNPManifest == nil {
 		return Resolution{}, fmt.Errorf("no host configured")
 	}
-	m, err := cfg.Host.FindPnPManifest(parentPath)
+	m, err := cfg.Host.FindPNPManifest(parentPath)
 	if err != nil {
 		return Resolution{}, err
 	}
